@@ -2,6 +2,7 @@ import React from "react";
 import Banner from "./Banner";
 // import ServiceCard from "./ServiceCard";
 import ServicesSection from "./ServicesSection";
+import ClientLogosMarquee from "./ClientLogosMarquee";
 
 const Home = () => {
     return (
@@ -9,6 +10,7 @@ const Home = () => {
             <Banner></Banner>
             <ServicesSection></ServicesSection>
             {/* <ServiceCard></ServiceCard> */}
+            <ClientLogosMarquee></ClientLogosMarquee>
         </div>
     );
 };
