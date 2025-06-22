@@ -30,6 +30,7 @@ const Navbar = () => {
                     {navItems}
                 </ul>
             </div>
+            <input type="checkbox" value="synthwave" className="toggle theme-controller" />
             <div className="navbar-end">
                 <a className="btn">Button</a>
             </div>
