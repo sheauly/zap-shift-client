@@ -7,6 +7,7 @@ const Navbar = () => {
     const navItems = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/about">About Us</NavLink></li>
+        <li><NavLink to="/coverage">Coverage</NavLink></li>
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
@@ -30,10 +31,12 @@ const Navbar = () => {
                     {navItems}
                 </ul>
             </div>
-            <input type="checkbox" value="synthwave" className="toggle theme-controller" />
-            <div className="navbar-end">
+           
+            <div className="navbar-end gap-4">
+                <input type="checkbox" value="synthwave" className="toggle theme-controller" />
                 <a className="btn">Button</a>
             </div>
+
       </div>
     );
 };
