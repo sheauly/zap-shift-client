@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import ProFAstLogo from '../ProFAstLogo';
 
 
@@ -10,7 +10,7 @@ const Navbar = () => {
         <li><NavLink to="/coverage">Coverage</NavLink></li>
     </>
     return (
-        <div className="navbar bg-base-100 shadow-sm">
+        <div className="navbar bg-base-100 shadow-sm rounded-2xl">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -34,7 +34,7 @@ const Navbar = () => {
            
             <div className="navbar-end gap-4">
                 <input type="checkbox" value="synthwave" className="toggle theme-controller" />
-                <a className="btn">Button</a>
+                <Link to="/login" className='btn btn-primary text-black'>Login</Link>
             </div>
 
       </div>
