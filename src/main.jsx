@@ -6,6 +6,9 @@ import { router } from "./router/router.jsx";
 import "./index.css";
 import "./style.css";
 import AuthProvider from "./AuthProvider.jsx";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // import 'aos/dist/aos.css';
 // import Aos from 'aos';
@@ -17,6 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <div className="font-urbanist max-w-7xl mx-auto">
             <AuthProvider>
                 <RouterProvider router={router} />
+                <ToastContainer />
             </AuthProvider>
         </div>
     </StrictMode>

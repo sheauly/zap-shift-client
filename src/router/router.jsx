@@ -1,11 +1,14 @@
+import React from 'react';
 import { createBrowserRouter } from "react-router-dom";
-
 import Home from "../pages/Home";
 import RootLayout from "../layOut/RootLayOut";
 import AuthLayOut from "../layOut/AuthLayOut";
 import Login from "../pages/Authentication/Login";
 import Register from "../pages/Register";
 import Coverage from "../pages/Coverage";
+import PrivateRoute from "./PrivateRoute";
+import SendParcel from "../pages/sendParcel";
+
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +23,13 @@ export const router = createBrowserRouter([
                 path: '/coverage',
                 Component: Coverage,
                 loader: () => fetch('./warehousesCenter.json')
+            },
+            {
+                path: '/sendParcel',
+                loader: () => fetch('./warehousesCenter.json'),
+                element: <PrivateRoute>
+                   <SendParcel></SendParcel>
+                </PrivateRoute>
             }
         ],
     },
