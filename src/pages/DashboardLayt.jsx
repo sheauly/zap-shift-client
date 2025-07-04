@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import ProFAstLogo from '../shared/ProFAstLogo';
+import { FiHome, FiPackage, FiCreditCard, FiMapPin, FiUser } from "react-icons/fi";
 
 const DashboardLayt = () => {
     return (
@@ -40,8 +41,31 @@ const DashboardLayt = () => {
                 <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
                     {/* Sidebar content here */}
                     <ProFAstLogo></ProFAstLogo>
-                    <li><a>Home</a></li>
-                    <li><NavLink to="/dashboard/myParcels" >My Parcels</NavLink></li>
+                    <li>
+                        <NavLink to="/dashboard" className="flex items-center gap-2">
+                            <FiHome /> Home
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/myParcels" className="flex items-center gap-2">
+                            <FiPackage /> My Parcels
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/paymentHistory" className="flex items-center gap-2">
+                            <FiCreditCard /> Payment History
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/track" className="flex items-center gap-2">
+                            <FiMapPin /> Track a Package
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/profile" className="flex items-center gap-2">
+                            <FiUser /> Update Profile
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
         </div>

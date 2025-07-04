@@ -83,7 +83,7 @@ const MyParcels = () => {
                             </td>
                             <td className="space-x-2">
                                 <button className="btn btn-sm btn-info btn-outline">View</button>
-                                <button onClick={() => handlePay(parcel._id)} className="btn btn-sm btn-success btn-outline">Pay</button>
+                                <button disabled={parcel.payment_status === 'paid'} onClick={() => handlePay(parcel._id)} className={`btn btn-sm btn-success btn-outline ${parcel.payment_status === "paid" ? "cursor-not-allowed" : ""}`}>Pay</button>
                                 <button
                                     className="btn btn-sm btn-error btn-outline"
                                     onClick={() => handleDelete(parcel._id)}

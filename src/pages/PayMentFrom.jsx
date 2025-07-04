@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useAuth from '../hooks/useAuth'
 import { useQuery } from '@tanstack/react-query';
 import useAxioSecure from './useAxioSecure';
+import Swal from 'sweetalert2';
 
 const PayMentFrom = () => {
     const stripe = useStripe();
@@ -12,6 +13,7 @@ const PayMentFrom = () => {
     const axiosSecure = useAxioSecure();
     const { user } = useAuth();
     const [error, setError] = useState('');
+    const navigate = useNavigate();
     // const [clientSecret, setClientSecret] = useState('');
 
     // Step-1: fetch parcel info
@@ -80,23 +82,38 @@ const PayMentFrom = () => {
                 setError('');
                 if (result.paymentIntent.status === 'succeeded') {
                     console.log('payment succeeded!');
-                    console.log(result);
+                    const transactionID = result.paymentIntent.id;
+                    // console.log(result);
 
                     //step-4 mark parcel paid also create payment history 
                     const paymentData = {
                         parcelId,
                         email: user.email,
                         amount,
-                        transaction: result.paymentIntent.id,
+                        transactionId: transactionID,
                         paymentMethod: result.paymentIntent.payment_method_types
                     }
+                    console.log(paymentData);
+
                     const paymentRes = await axiosSecure.post('/payments', paymentData)
                     if (paymentRes.data.insertedId) {
-                        console.log('payment successfully');
-                    }
+                        await Swal.fire({
+                            icon: 'success',
+                            title: 'Payment Successful!',
+                            html: `<strong>Transaction ID:</strong><code>${transactionID}</code>`,
+
+                            confirmButtonText: 'Go to My Parcels',
+
+                        }).then((result) => {
+                            if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                                navigate('/dashboard/myParcels');
+                            }
+                        });
+                    };
                 }
             }
         }
+
         // console.log('res from intent', res)
 
 
