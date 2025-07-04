@@ -5,10 +5,11 @@ import useAuth from '../../hooks/useAuth';
 
 
 const Navbar = () => {
-    const { user } = useAuth();
+    const { user, logOut } = useAuth();
+
     const navItems = <>
         <li><NavLink to="/">Home</NavLink></li>
-        
+
         <li><NavLink to="/sendParcel">Send A Parcel</NavLink></li>
         <li><NavLink to="/coverage">Coverage</NavLink></li>
         {
@@ -18,6 +19,13 @@ const Navbar = () => {
         }
         <li><NavLink to="/about">About Us</NavLink></li>
     </>
+
+    const handleLogout = () => {
+        logOut()
+            .then(result => { console.log(result) })
+            .catch(error => console.log(error));
+
+    }
     return (
         <div className="navbar bg-base-100 shadow-sm rounded-2xl">
             <div className="navbar-start">
@@ -28,7 +36,7 @@ const Navbar = () => {
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                       {navItems}
+                        {navItems}
                     </ul>
                 </div>
                 <a className="btn btn-ghost text-xl">
@@ -40,13 +48,18 @@ const Navbar = () => {
                     {navItems}
                 </ul>
             </div>
-           
+
             <div className="navbar-end gap-4">
                 <input type="checkbox" value="synthwave" className="toggle theme-controller" />
-                <Link to="/login" className='btn btn-primary text-black'>Login</Link>
+                {
+                    user ?
+                        <button onClick={handleLogout} className='btn btn-primary text-black'>Log Out</button>
+                        :
+                        <Link to="/login" className='btn btn-primary text-black'>Login</Link>
+                }
             </div>
 
-      </div>
+        </div>
     );
 };
 

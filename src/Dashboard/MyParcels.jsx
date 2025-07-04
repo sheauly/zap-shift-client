@@ -1,23 +1,32 @@
-
 import React from 'react';
 import Swal from 'sweetalert2';
-import { FaTrashAlt } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../hooks/useAuth';
 import useAxioSecure from '../pages/useAxioSecure';
+import { FaTrashAlt } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
 
 const MyParcels = () => {
     const { user } = useAuth();
+    const navigate = useNavigate();
     const axiosSecure = useAxioSecure();
-
     const { data: parcels = [], refetch } = useQuery({
-        queryKey: ['my-parcels', user.email],
+        queryKey: ['my-parcels', user?.email],
+
         queryFn: async () => {
-            const res = await axiosSecure.get(`/parcels?email=${user.email}`);
+            const res = await axiosSecure.get(`/parcels?email=${user?.email}`);
             return res.data;
-        }
+        },
+        enabled: !!user?.email
     });
 
+    const handleView = (id) => {
+        console.log("view parcel", id);
+    }
+    const handlePay = (id) => {
+        console.log("prceseed to payment", id);
+        navigate(`/dashboard/payment/${id}`)
+    }
     const handleDelete = (id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -42,8 +51,12 @@ const MyParcels = () => {
                     });
             }
         });
-
     };
+
+
+    if (!user?.email) {
+        return <p className="text-center mt-10 text-gray-500">Loading user info...</p>;
+    }
 
     return (
         <div className="overflow-x-auto w-11/12 mx-auto mt-10">
@@ -58,7 +71,7 @@ const MyParcels = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {parcels.map((parcel, index) => (
+                    {parcels?.map((parcel, index) => (
                         <tr key={parcel._id}>
                             <td>{index + 1}</td>
                             <td>{parcel.title}</td>
@@ -68,12 +81,14 @@ const MyParcels = () => {
                                     {parcel.payment_status}
                                 </span>
                             </td>
-                            <td>
+                            <td className="space-x-2">
+                                <button className="btn btn-sm btn-info btn-outline">View</button>
+                                <button onClick={() => handlePay(parcel._id)} className="btn btn-sm btn-success btn-outline">Pay</button>
                                 <button
                                     className="btn btn-sm btn-error btn-outline"
                                     onClick={() => handleDelete(parcel._id)}
                                 >
-                                    <FaTrashAlt />
+                                    delete
                                 </button>
                             </td>
                         </tr>

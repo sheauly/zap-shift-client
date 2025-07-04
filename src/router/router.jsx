@@ -10,6 +10,7 @@ import PrivateRoute from "./PrivateRoute";
 import SendParcel from "../pages/sendParcel";
 import DashboardLayt from '../pages/DashboardLayt';
 import MyParcels from '../Dashboard/MyParcels';
+import PayMent from '../pages/PayMent';
 
 
 export const router = createBrowserRouter([
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
                 path: '/sendParcel',
                 loader: () => fetch('./warehousesCenter.json'),
                 element: <PrivateRoute>
-                   <SendParcel></SendParcel>
+                    <SendParcel></SendParcel>
                 </PrivateRoute>
             }
         ],
@@ -48,7 +49,7 @@ export const router = createBrowserRouter([
                 Component: Register
             }
         ]
-        
+
     },
 
     {
@@ -60,6 +61,10 @@ export const router = createBrowserRouter([
             {
                 path: "myParcels",
                 Component: MyParcels
+            },
+            {
+                path: "payment/:parcelId",
+                Component: PayMent
             }
         ]
     }
