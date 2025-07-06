@@ -3,7 +3,6 @@ import { Link, NavLink } from 'react-router-dom';
 import ProFAstLogo from '../ProFAstLogo';
 import useAuth from '../../hooks/useAuth';
 
-
 const Navbar = () => {
     const { user, logOut } = useAuth();
 
@@ -24,8 +23,8 @@ const Navbar = () => {
         logOut()
             .then(result => { console.log(result) })
             .catch(error => console.log(error));
-
     }
+
     return (
         <div className="navbar bg-base-100 shadow-sm rounded-2xl">
             <div className="navbar-start">
